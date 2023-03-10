@@ -112,11 +112,12 @@ class RouzisController < ApplicationController
       zkdatetime = DateTime.parse(zkdatetime_str)
       zodatetime_str = "#{:zitsuowari} #{zot}"
       zodatetime = DateTime.zone.parse(zodatetime_str)
-      @rouzi = @user.rouzis.new(zitsukaishi: zkdatetime, zitsuowari: zodatetime, user_id: @user.id)
-      if @rouzi.zitsuowari < @rouzi.zitsukaishi
+      if zodatetime < zkdatetime
         flash.now[:alert] = "終了時刻は開始時刻より後にしてください"
         render :new
-      elsif @rouzi.save
+      else
+        @rouzi = @user.rouzis.new(zitsukaishi: zkdatetime, zitsuowari: zodatetime, user_id: @user.id)
+        @rouzi.save
         redirect_to user_rouzi_path(@user, @rouzi), notice: "作成しました"
       end
     else
