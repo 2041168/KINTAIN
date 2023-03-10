@@ -109,9 +109,9 @@ class RouzisController < ApplicationController
       #zkt = Time.zone.parse(params.dig(:zitsukaishi_time))
       #zot = Time.zone.parse(params.dig(:zitsuowari_time))
       zkdatetime_str = "#{params.dig(:zitsukaishi)} #{params.dig(:zitsukaishi_time)}"
-      zkdatetime = DateTime.parse(zkdatetime_str)
+      zkdatetime = DateTime.strptime(zkdatetime_str, '%Y-%m-%d %H:%M')
       zodatetime_str = "#{params.dig(:zitsuowari)} #{params.dig(:zitsuowari_time)}"
-      zodatetime = DateTime.parse(zodatetime_str)
+      zodatetime = DateTime.strptime(zodatetime_str, '%Y-%m-%d %H:%M')
       if zodatetime < zkdatetime
         flash.now[:alert] = "終了時刻は開始時刻より後にしてください"
         render :new
