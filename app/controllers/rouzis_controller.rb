@@ -97,7 +97,7 @@ class RouzisController < ApplicationController
   
   def new
     @user = User.find(params[:user_id])
-    teigi
+    #teigi
     @rouzi = @user.rouzis.new
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path, alert: 'ユーザーが見つかりませんでした'
@@ -107,9 +107,9 @@ class RouzisController < ApplicationController
     @user = User.find(params[:user_id])
     if params[:rouzi][:zitsukaishi] != '' && params[:rouzi][:zitsukaishi_time] != '' && params[:rouzi][:zitsuowari] != '' && params[:rouzi][:zitsuowari_time] != ''
       zkdatetime_str = "#{params[:rouzi][:zitsukaishi]} #{params[:rouzi][:zitsukaishi_time]}"
-      zkdatetime = DateTime.parse(zkdatetime_str)
+      zkdatetime = Time.zone.parse(zkdatetime_str)
       zodatetime_str = "#{params[:rouzi][:zitsuowari]} #{params[:rouzi][:zitsuowari_time]}"
-      zodatetime = DateTime.parse(zodatetime_str)
+      zodatetime = Time.zone.parse(zodatetime_str)
       @rouzi = @user.rouzis.new(zitsukaishi: zkdatetime, zitsuowari: zodatetime, user_id: @user.id)
       if @rouzi.zitsuowari < @rouzi.zitsukaishi
         flash.now[:alert] = "終了時刻は開始時刻より後にしてください"
