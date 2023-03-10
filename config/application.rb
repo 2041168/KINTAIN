@@ -1,4 +1,4 @@
-require_relative "boot"
+require_relative 'boot'
 
 require "rails"
 # Pick the frameworks you want:
@@ -14,15 +14,27 @@ require "action_view/railtie"
 require "action_cable/engine"
 require "rails/test_unit/railtie"
 
+require 'rails/all'
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
+#active_record定義
+module YourAppName
+  class Application < Rails::Application
+    config.load_defaults 6.1
+    config.generators do |g|
+      g.orm :active_record
+    end
+  end
+end
 
 module KINTAIN
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
-
+    config.i18n.default_locale = :ja
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

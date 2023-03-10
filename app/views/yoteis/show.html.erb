@@ -1,0 +1,44 @@
+<section class="hero is-warning">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        予定詳細・編集
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      
+      <td class="is-size-4">
+        <strong><%= "#{@yotei.yoteikaishi}~#{@yotei.yoteiowari}" %></strong>
+      </td>
+        <%= link_to "　#{@yotei.user.username}　", user_path(@yotei.user_id) %>
+        <%= link_to "一覧", user_rouzis_path(@user), class: "button is-primary" %>
+    </div>
+  </div>
+</section>
+
+<div class="field">
+  <div class="control">
+    <div class="columns is-centered">
+      <%= form_with(model: [@user, @yotei], url: user_yotei_path(@user, @yotei), method: :patch) do |f| %>
+        <%= f.label :yoteikaishi_u, '開始日' %>
+        <%= f.date_field :yoteikaishi_u, value: @yotei.yoteikaishi.to_date %>
+        <%= f.label :yoteikaishi_time_u, '開始時刻' %>
+        <%= f.time_field :yoteikaishi_time_u, value: @yotei.yoteikaishi.strftime('%H:%M') %>
+  
+        <%= f.label :yoteiowari_u, '終了日' %>
+        <%= f.date_field :yoteiowari_u, value: @yotei.yoteiowari.to_date %>
+        <%= f.label :yoteiowari_time_u, '終了時刻' %>
+        <%= f.time_field :yoteiowari_time_u, value: @yotei.yoteiowari.strftime('%H:%M') %>
+  
+        <%= f.submit "変更", class: "button is-success" %>
+      <% end %>      
+      <span>　</span>
+      <%= button_to '削除', user_yotei_path(@user, @yotei), method: :delete, class: "button is-danger" %>
+    </div>
+  </div>
+</div>

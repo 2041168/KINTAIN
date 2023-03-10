@@ -61,4 +61,8 @@ Rails.application.configure do
   
   # Cloud9 への接続を許可するよ
   config.hosts.clear
+  
+  #deviceのセットアップ
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  
 end

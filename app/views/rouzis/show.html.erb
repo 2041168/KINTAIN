@@ -1,0 +1,44 @@
+<section class="hero is-warning">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        実績詳細・編集
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      
+      <td class="is-size-4">
+        <strong><%= "#{@rouzi.zitsukaishi}~#{@rouzi.zitsuowari}" %></strong>
+      </td>
+        <%= link_to "　#{@rouzi.user.username}　", user_path(@rouzi.user_id) %>
+        <%= link_to "一覧", user_rouzis_path(@user), class: "button is-primary" %>
+    </div>
+  </div>
+</section>
+
+<div class="field">
+  <div class="control">
+    <div class="columns is-centered">
+      <%= form_with(model: [@user, @rouzi], url: user_rouzi_path(@user, @rouzi), method: :patch) do |f| %>
+        <%= f.label :zitsukaishi_u, '開始日' %>
+        <%= f.date_field :zitsukaishi_u, value: @rouzi.zitsukaishi.to_date %>
+        <%= f.label :zitsukaishi_time_u, '開始時刻' %>
+        <%= f.time_field :zitsukaishi_time_u, value: @rouzi.zitsukaishi.strftime('%H:%M') %>
+  
+        <%= f.label :zitsuowari_u, '終了日' %>
+        <%= f.date_field :zitsuowari_u, value: @rouzi.zitsuowari.to_date %>
+        <%= f.label :zitsuowari_time_u, '終了時刻' %>
+        <%= f.time_field :zitsuowari_time_u, value: @rouzi.zitsuowari.strftime('%H:%M') %>
+  
+        <%= f.submit "変更", class: "button is-success" %>
+      <% end %>
+      <span>　</span>
+      <%= button_to '削除', user_rouzi_path(@user, @rouzi), method: :delete, class: "button is-danger" %>
+    </div>
+  </div>
+</div>

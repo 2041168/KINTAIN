@@ -1,0 +1,88 @@
+<section class="hero is-warning">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        一覧
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="field">
+      <div class="control">
+        <div class="columns is-centered">
+            <%= form_with url: user_rouzis_path(@user), method: :get, local: true do |f| %>
+              <%= f.label :kensakukaishi, '開始日' %>
+              <%= f.date_field :kensakukaishi, value: @kensakukaishi %>
+              ~
+              <%= f.label :kensakuowari, '終了日' %>
+              <%= f.date_field :kensakuowari, value: @kensakuowari %>
+        
+              <%= f.submit "検索", class: "button is-success" %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 左側に日付、右側に予定一覧を表示する部分 -->
+<div class="container">
+  <div class="columns has-text-centered">
+    <div class="column">
+      <h1 class="title is-4">検索結果 <%= @kensakukaishi %>~<%= @kensakuowari %></h1>
+      <h1 class="title is-4">
+        合計予定労働時間：<%= @yotei_total %><br>
+        合計実績労働時間：<%= @rouzi_total %><br>
+        予定外労働時間：<%= @diff %><br>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <% @data.each do |date, data| %>
+    <hr>
+    <div class="columns">
+      <div class="column is-2">
+        <h2 class="title is-4"><%= date.strftime('　%-m月%-d日') %></h2>
+      </div>
+      <div class="column">
+        <div class="columns">
+          <div class="column is-6">
+            <h3 class="subtitle is-5">予定</h3>
+            <% yoteis = data[:yotei] %>
+            <% if yoteis.present? %>
+              <ul>
+                <% yoteis.each do |yotei| %>
+                  <li>
+                    予定：<%= link_to yotei[:time], user_yotei_path(@user, yotei) %>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p>該当なし</p>
+            <% end %>
+          </div>
+          <div class="column is-6">
+            <h3 class="subtitle is-5">実績</h3>
+            <% rouzis = data[:rouzi] %>
+            <% if rouzis.present? %>
+              <ul>
+              <% rouzis.each do |rouzi| %>
+                <li>
+                  実績：<%= link_to rouzi[:time], user_rouzi_path(@user, rouzi) %>
+                </li>
+              <% end %>
+              </ul>
+            <% else %>
+              <p>該当なし</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

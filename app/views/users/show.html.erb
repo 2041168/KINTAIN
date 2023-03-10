@@ -1,0 +1,41 @@
+<section class="hero is-warning">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        詳細
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <table class="table">
+              <strong class="is-size-4"><%= @user.username %>　</strong>
+              <% if @user.kinmu == 2 %>
+                <strong class="is-size-5">出勤中　</strong>
+              <% end %>
+              <% if @user.id == current_user.id || current_user.roll == 2 %>
+                <span class="is-size-5"><%= @user.email %>　</span>
+              <% end %><br><hr>
+              <% if @user.id == current_user.id || current_user.roll == 2 %>
+                <span class="is-size-5"><%= link_to "編集", edit_user_path(@user), class: "button is-primary" %>　</span>
+                <span class="is-size-5"><%= link_to "一覧", user_rouzis_path(@user), class: "button is-primary" %>　</span>
+              <% else %>
+                <span colspan="2" class="is-size-4">詳細の閲覧権限がありません</td>
+              <% end %>
+              <% if current_user.roll == 2 %>
+                <span class="is-size-5"><%= link_to "予定作成", new_user_yotei_path(@user), class: "button is-primary" %>　</span>
+                <span class="is-size-5"><%= link_to "実績作成", new_user_rouzi_path(@user), class: "button is-primary" %>　</span>
+              <% end %>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

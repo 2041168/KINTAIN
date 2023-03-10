@@ -1,0 +1,63 @@
+<section class="hero is-warning">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        ホーム
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        
+        <% if user_signed_in? %>
+            <div class="field is-grouped">
+              <p class="control">
+                <%= link_to "マイページ", user_path(current_user.id), class: " button is-warning is-light" %>
+              </p>
+              <p class="control">
+                <%= link_to "社員一覧", users_path, class: " button is-warning is-light" %>
+              </p>
+              <p class="control">
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "button is-warning is-light" %>
+              </p>
+            </div>
+        <% else %>
+            <div class="field is-grouped">
+              <p class="control">
+                <%= link_to "ログイン", new_user_session_path, class: "button is-warning is-light" %>
+              </p>
+            </div>
+        <% end %>
+        
+          <strong></strong>
+          <h1 class="title" id="clock"></h1>
+        
+        <script>
+          function updateClock() {
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = now.getMonth() + 1;
+            var date = now.getDate();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+            var clock = document.getElementById('clock');
+            clock.textContent = year + "/" + month + "/" + date + " " + hour + ":" + minute + ":" + second;
+          }
+          setInterval(updateClock, 1000);
+      </script>
+
+        <% if @user && user_signed_in? %>
+          <strong><% label = (@user.kinmu == 1) ? "出勤" : "退勤" %></strong>
+          <%= button_to label, { action: "custom_method" }, method: :put, class:(@user.kinmu == 1) ? "button is-info is-large":"button is-danger is-large" %>
+        <% end %>
+
+
+      </div>
+    </div>
+  </div>
+</section>

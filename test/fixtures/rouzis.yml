@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  yoteikaishi: 2023-03-06 05:38:27
+  yoteiowari: 2023-03-06 05:38:27
+  zitsukaishi: 2023-03-06 05:38:27
+  zitsuowari: 2023-03-06 05:38:27
+
+two:
+  user_id: 1
+  yoteikaishi: 2023-03-06 05:38:27
+  yoteiowari: 2023-03-06 05:38:27
+  zitsukaishi: 2023-03-06 05:38:27
+  zitsuowari: 2023-03-06 05:38:27
