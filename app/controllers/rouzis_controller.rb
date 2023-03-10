@@ -5,7 +5,7 @@ class RouzisController < ApplicationController
     @yoteis = @user.yoteis.all
     @yoteis = @yoteis.order(:yoteikaishi)
     @rouzis = @user.rouzis.where.not(zitsukaishi: nil).where.not(zitsuowari: nil)
-    @rouzis = @rouzis.order(:rouzikaishi)
+    @rouzis = @rouzis.order(:zitsukaishi)
     
     # 絞り込み範囲の指定
     @kensakukaishi = params.dig(:kensakukaishi)&.to_date || Time.zone.today
