@@ -108,13 +108,13 @@ class RouzisController < ApplicationController
     if params.dig(:zitsukaishi) != '' && params.dig(:zitsukaishi_time) != '' && params.dig(:zitsuowari) != '' && params.dig(:zitsuowari_time) != ''
       #zkt = Time.zone.parse(params.dig(:zitsukaishi_time))
       #zot = Time.zone.parse(params.dig(:zitsuowari_time))
-zkdate_str = params.dig(:user, :rouzi, :zitsukaishi)
-zktime_str = params.dig(:user, :rouzi, :zitsukaishi_time)
+zkdate_str = params.dig(:zitsukaishi)
+zktime_str = params.dig(:zitsukaishi_time)
 zkdatetime_str = "#{zkdate_str} #{zktime_str}"
 zkdatetime = DateTime.strptime(zkdatetime_str, '%Y-%m-%d %H:%M')
 
-zodate_str = params.dig(:user, :rouzi, :zitsuowari)
-zotime_str = params.dig(:user, :rouzi, :zitsuowari_time)
+zodate_str = params.dig(:zitsuowari)
+zotime_str = params.dig(:zitsuowari_time)
 zodatetime_str = "#{zodate_str} #{zotime_str}"
 zodatetime = DateTime.strptime(zodatetime_str, '%Y-%m-%d %H:%M')
 
