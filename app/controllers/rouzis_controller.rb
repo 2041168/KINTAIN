@@ -105,16 +105,16 @@ class RouzisController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    if params.dig(:zitsukaishi).present? && params.dig(:zitsukaishi_time).present? && params.dig(:zitsuowari).present? && params.dig(:zitsuowari_time).present?
+    if params[:rouzi][:zitsukaishi].present? && params[:rouzi][:zitsukaishi_time].present? && params[:rouzi][:zitsuowari].present? && params[:rouzi][:zitsuowari_time].present?
       #zkt = Time.zone.parse(params.dig(:zitsukaishi_time))
       #zot = Time.zone.parse(params.dig(:zitsuowari_time))
-zkdate_str = params.dig(:zitsukaishi).strftime('%Y-%m-%d')
-zktime_str = params.dig(:zitsukaishi_time).strftime('%H:%M')
+zkdate_str = params[:rouzi][:zitsukaishi].strftime('%Y-%m-%d')
+zktime_str = params[:rouzi][:zitsukaishi_time].strftime('%H:%M')
 zkdatetime_str = "#{zkdate_str} #{zktime_str}"
 zkdatetime =DateTime.parse(zkdatetime_str)
 
-zodate_str = params.dig(:zitsuowari).strftime('%Y-%m-%d')
-zotime_str = params.dig(:zitsuowari_time).strftime('%H:%M')
+zodate_str = params[:rouzi][:zitsuowari].strftime('%Y-%m-%d')
+zotime_str = params[:rouzi][:zitsuowari_time].strftime('%H:%M')
 zodatetime_str = "#{zodate_str} #{zotime_str}"
 zodatetime = DateTime.parse(zodatetime_str)
 
