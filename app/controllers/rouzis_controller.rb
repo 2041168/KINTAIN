@@ -21,6 +21,8 @@ class RouzisController < ApplicationController
     # 範囲内の予定と労働時間の取得
     yoteis = @yoteis.select { |y| y.yoteikaishi >= @kensakukaishi.to_datetime.beginning_of_day && y.yoteikaishi <= @kensakuowari.to_datetime.end_of_day }
     rouzis = @rouzis.select { |r| r.zitsukaishi >= @kensakukaishi.to_datetime.beginning_of_day && r.zitsukaishi <= @kensakuowari.to_datetime.end_of_day }
+    @yoteide = yoteis
+    
     
     # 日付ごとに予定と労働時間をグループ化
     @data = {}
