@@ -105,7 +105,7 @@ class RouzisController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    if params.dig(:zitsukaishi) != '' && params.dig(:zitsukaishi_time) != '' && params.dig(:zitsuowari) != '' && params.dig(:zitsuowari_time) != ''
+    if params.dig(:zitsukaishi).present? && params.dig(:zitsukaishi_time).present? && params.dig(:zitsuowari).present? && params.dig(:zitsuowari_time).present?
       #zkt = Time.zone.parse(params.dig(:zitsukaishi_time))
       #zot = Time.zone.parse(params.dig(:zitsuowari_time))
 zkdate_str = params.dig(:zitsukaishi).strftime('%Y-%m-%d')
