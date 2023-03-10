@@ -57,7 +57,7 @@
               <ul>
                 <% data[:yotei].each do |yotei| %>
                   <li>
-                    予定：<%= link_to yotei[:time], user_yotei_path(@user, yotei.id) %>
+                    予定：<%= link_to yotei[:time], user_yotei_path(@user, yotei[:id]) %>
                   </li>
                 <% end %>
               </ul>
@@ -71,7 +71,7 @@
               <ul>
               <% data[:rouzi].each do |rouzi| %>
                 <li>
-                  実績：<%= link_to rouzi[:time], user_rouzi_path(@user, rouzi.id) %>
+                  実績：<%= link_to rouzi[:time], user_rouzi_path(@user, rouzi[:id]) %>
                 </li>
               <% end %>
               </ul>
