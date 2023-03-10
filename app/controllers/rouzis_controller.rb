@@ -4,7 +4,6 @@ class RouzisController < ApplicationController
     @user = User.find(params[:user_id])
     @yoteis = @user.yoteis.all
     @yoteis = @yoteis.order(:yoteikaishi)
-    @yoteis2 = @yoteis
     @rouzis = @user.rouzis.where.not(zitsukaishi: nil).where.not(zitsuowari: nil)
     @rouzis = @rouzis.order(:rouzikaishi)
     
