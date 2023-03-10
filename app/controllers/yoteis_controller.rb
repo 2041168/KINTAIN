@@ -37,8 +37,8 @@ class YoteisController < ApplicationController
   
   def new
     @user = User.find(params[:user_id])
-    @yotei = @user.yoteis.new
     teigi
+    @yotei = @user.yoteis.new
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path, alert: 'ユーザーが見つかりませんでした'
   end

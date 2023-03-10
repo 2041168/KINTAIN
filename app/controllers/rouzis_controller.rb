@@ -91,14 +91,14 @@ class RouzisController < ApplicationController
       end
     else
       flash.now[:alert] = "全ての情報を入力してください"
-        render :show
+      render :show
     end
   end
   
   def new
     @user = User.find(params[:user_id])
-    @rouzi = @user.rouzis.new
     teigi
+    @rouzi = @user.rouzis.new
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path, alert: 'ユーザーが見つかりませんでした'
   end
