@@ -10,6 +10,7 @@ class RouzisController < ApplicationController
     # 絞り込み範囲の指定
     @kensakukaishi = params.dig(:kensakukaishi)&.to_date || Time.zone.today
     @kensakuowari = params.dig(:kensakuowari)&.to_date || 30.days.from_now.to_date
+    kensakuowari_datetime = @kensakuowari.to_datetime.end_of_day
     
     if @kensakuowari < @kensakukaishi
         flash.now[:alert] = "終了日は開始日より後にしてください"
@@ -21,8 +22,8 @@ class RouzisController < ApplicationController
     end
     
     # 予定と労働時間の取得
-    yoteis = @user.yoteis.where(yoteikaishi: @kensakukaishi.to_datetime.beginning_of_day..@kensakuowari.to_datetime.end_of_day)
-    rouzis = @user.rouzis.where(zitsukaishi: @kensakukaishi.to_datetime.beginning_of_day..@kensakuowari.to_datetime.end_of_day)
+    yoteis = @yoteis.where(yoteikaishi: @kensakukaishi.to_datetime.beginning_of_day..kensakuowari_datetime)
+    rouzis = @rouzis.where(zitsukaishi: @kensakukaishi.to_datetime.beginning_of_day..kensakuowari_datetime)
     
     # 日付ごとに予定と労働時間をグループ化
     @data = {}
