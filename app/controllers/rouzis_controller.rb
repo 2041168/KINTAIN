@@ -21,8 +21,8 @@ class RouzisController < ApplicationController
     end
     
     # 範囲内の予定と労働時間の取得
-    yoteis = @yoteis.select { |y| y.yoteikaishi >= kk && y.yoteikaishi <= ko }
-    rouzis = @rouzis.select { |r| r.zitsukaishi >= kk && r.zitsukaishi <= ko }
+    yoteis = @yoteis.select { |y| (y.yoteikaishi >= kk && y.yoteikaishi <= ko) }
+    rouzis = @rouzis.select { |r| (r.zitsukaishi >= kk && r.zitsukaishi <= ko) }
     @yoteide = yoteis
     
     
