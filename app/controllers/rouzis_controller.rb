@@ -105,11 +105,13 @@ class RouzisController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    if params[:rouzi][:zitsukaishi] != '' && params[:rouzi][:zitsukaishi_time] != '' && params[:rouzi][:zitsuowari] != '' && params[:rouzi][:zitsuowari_time] != ''
-      zkdatetime_str = "#{params[:rouzi][:zitsukaishi]} #{params[:rouzi][:zitsukaishi_time]}"
-      zkdatetime = DateTime.parse(zkdatetime_str).in_time_zone
-      zodatetime_str = "#{params[:rouzi][:zitsuowari]} #{params[:rouzi][:zitsuowari_time]}"
-      zodatetime = DateTime.parse(zodatetime_str).in_time_zone
+    if :zitsukaishi != '' && :zitsukaishi_time != '' && :zitsuowari != '' && :zitsuowari_time != ''
+      zkt = Time.zone.parse(zitsukaishi_time)
+      zot = Time.zone.parse(zitsuowari_time)
+      zkdatetime_str = "#{:zitsukaishi} #{zkt}"
+      zkdatetime = DateTime.parse(zkdatetime_str)
+      zodatetime_str = "#{:zitsuowari} #{zot}"
+      zodatetime = DateTime.zone.parse(zodatetime_str)
       @rouzi = @user.rouzis.new(zitsukaishi: zkdatetime, zitsuowari: zodatetime, user_id: @user.id)
       if @rouzi.zitsuowari < @rouzi.zitsukaishi
         flash.now[:alert] = "終了時刻は開始時刻より後にしてください"
