@@ -10,7 +10,6 @@ class RouzisController < ApplicationController
     # 絞り込み範囲の指定
     @kensakukaishi = params.dig(:kensakukaishi)&.to_date || Time.zone.today
     @kensakuowari = params.dig(:kensakuowari)&.to_date || 30.days.from_now.to_date
-    kensakuowari_datetime = @kensakuowari.to_datetime.end_of_day
     
     if @kensakuowari < @kensakukaishi
         flash.now[:alert] = "終了日は開始日より後にしてください"
@@ -21,18 +20,18 @@ class RouzisController < ApplicationController
         render :index
     end
     
-    # 予定と労働時間の取得
-    yoteis = @yoteis.where(yoteikaishi: @kensakukaishi.to_datetime.beginning_of_day..kensakuowari_datetime)
-    rouzis = @rouzis.where(zitsukaishi: @kensakukaishi.to_datetime.beginning_of_day..kensakuowari_datetime)
+    # 範囲内の予定と労働時間の取得
+    yoteis = @yoteis.select { |y| y.yoteikaishi >= @kensakukaishi.to_datetime.beginning_of_day && y.yoteikaishi <= @kensakuowari.to_datetime.end_of_day }
+    rouzis = @rouzis.select { |r| r.zitsukaishi >= @kensakukaishi.to_datetime.beginning_of_day && r.zitsukaishi <= @kensakuowari.to_datetime.end_of_day }
     
     # 日付ごとに予定と労働時間をグループ化
     @data = {}
     (@kensakukaishi..@kensakuowari).each do |date|
-      # 予定の取得
+      # dateと日付が同じ予定を取得
       yotei_data = yoteis.select { |y| y.yoteikaishi.to_date == date }
       yotei = yotei_data.map { |y| { id: y.id, time: "#{y.yoteikaishi.strftime('%-H:%M')}~#{y.yoteiowari.strftime('%-H:%M')}" } }
     
-      # 労働時間の取得
+      # dateと日付が同じ労働を取得
       rouzi_data = rouzis.select { |r| r.zitsukaishi.to_date == date }
       rouzi = rouzi_data.map { |r| { id: r.id, time: "#{r.zitsukaishi.strftime('%-H:%M')}~#{r.zitsuowari.strftime('%-H:%M')}" } }
     
