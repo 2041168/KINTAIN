@@ -110,13 +110,15 @@ class RouzisController < ApplicationController
       #zot = Time.zone.parse(params.dig(:zitsuowari_time))
       zitsukaishi = DateTime.parse(params[:rouzi][:zitsukaishi])
       zkdate_str = zitsukaishi.strftime('%Y-%m-%d')
-      zktime_str = params[:rouzi][:zitsukaishi_time].strftime('%H:%M')
+      zitsukaishi_t = DateTime.parse(params[:rouzi][:zitsukaishi_time])
+      zktime_str = zitsukaishi_t.strftime('%H:%M')
       zkdatetime_str = "#{ zkdate_str } #{ zktime_str }"
       zkdatetime = DateTime.parse(zkdatetime_str)
       
       zitsuowari = DateTime.parse(params[:rouzi][:zitsukaishi])
       zodate_str = zitsuowari.strftime('%Y-%m-%d')
-      zotime_str = params[:rouzi][:zitsuowari_time].strftime('%H:%M')
+      zitsuowari_t = DateTime.parse(params[:rouzi][:zitsuowari_time])
+      zotime_str = zitsuowari_t.strftime('%H:%M')
       zodatetime_str = "#{ zodate_str } #{ zotime_str }"
       zodatetime = DateTime.parse(zodatetime_str)
       @rouzi = @user.rouzis.new(zitsukaishi: zkdatetime, zitsuowari: zodatetime, user_id: @user.id)
