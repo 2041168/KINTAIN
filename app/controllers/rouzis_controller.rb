@@ -132,8 +132,8 @@ class RouzisController < ApplicationController
     @zitsuowari_time = Time.zone.now
   end
   
-  #def rouzi_params
-    #params.require(:rouzi).permit(:zitsukaishi, :zitsukaishi_time, :zitsuowari, :zitsuowari_time)
-  #end
+  def rouzi_params
+    params.require(:rouzi).permit(:zitsukaishi, :zitsukaishi_time, :zitsuowari, :zitsuowari_time)
+  end
   
 end
