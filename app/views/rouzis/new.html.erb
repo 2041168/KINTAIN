@@ -14,11 +14,15 @@
       <div class="control">
         <div class="columns is-centered">
           <%= form_with model: [@user, @rouzi || @user.rouzis.new], local: true do |f| %>
-<%= f.label :zitsukaishi, '開始日時' %>
-<%= f.datetime_local_field :zitsukaishi %>
-
-<%= f.label :zitsuowari, '終了日時' %>
-<%= f.datetime_local_field :zitsuowari %>
+            <%= f.label :zitsukaishi, '開始日' %>
+            <%= f.date_field :zitsukaishi %>
+            <%= f.label :zitsukaishi_time, '開始時刻' %>
+            <%= f.time_field :zitsukaishi_time %>
+      
+            <%= f.label :zitsuowari, '終了日' %>
+            <%= f.date_field :zitsuowari %>
+            <%= f.label :zitsuowari_time, '終了時刻' %>
+            <%= f.time_field :zitsuowari_time %>
       
             <%= f.submit "作成", class: "button is-success" %>
           <% end %>
