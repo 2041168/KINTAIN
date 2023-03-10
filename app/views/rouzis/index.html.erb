@@ -53,10 +53,9 @@
         <div class="columns">
           <div class="column is-6">
             <h3 class="subtitle is-5">予定</h3>
-            <% yoteis = data[:yotei] %>
-            <% if yoteis.present? %>
+            <% if data[:yotei].present? %>
               <ul>
-                <% yoteis.each do |yotei| %>
+                <% data[:yotei].each do |yotei| %>
                   <li>
                     予定：<%= link_to yotei[:time], user_yotei_path(@user, yotei) %>
                   </li>
@@ -68,10 +67,9 @@
           </div>
           <div class="column is-6">
             <h3 class="subtitle is-5">実績</h3>
-            <% rouzis = data[:rouzi] %>
-            <% if rouzis.present? %>
+            <% if data[:rouzi].present? %>
               <ul>
-              <% rouzis.each do |rouzi| %>
+              <% data[:rouzi].each do |rouzi| %>
                 <li>
                   実績：<%= link_to rouzi[:time], user_rouzi_path(@user, rouzi) %>
                 </li>
