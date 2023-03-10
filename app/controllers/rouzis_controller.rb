@@ -108,15 +108,15 @@ class RouzisController < ApplicationController
     if params.dig(:zitsukaishi) != '' && params.dig(:zitsukaishi_time) != '' && params.dig(:zitsuowari) != '' && params.dig(:zitsuowari_time) != ''
       #zkt = Time.zone.parse(params.dig(:zitsukaishi_time))
       #zot = Time.zone.parse(params.dig(:zitsuowari_time))
-zkdate_str = params.dig(:zitsukaishi)
-zktime_str = params.dig(:zitsukaishi_time)
+zkdate_str = params.dig(:zitsukaishi).strftime('%Y-%m-%d')
+zktime_str = params.dig(:zitsukaishi_time).strftime('%H:%M')
 zkdatetime_str = "#{zkdate_str} #{zktime_str}"
-zkdatetime = DateTime.strptime(zkdatetime_str, '%Y-%m-%d %H:%M')
+zkdatetime =DateTime.parse(zkdatetime_str)
 
-zodate_str = params.dig(:zitsuowari)
-zotime_str = params.dig(:zitsuowari_time)
+zodate_str = params.dig(:zitsuowari).strftime('%Y-%m-%d')
+zotime_str = params.dig(:zitsuowari_time).strftime('%H:%M')
 zodatetime_str = "#{zodate_str} #{zotime_str}"
-zodatetime = DateTime.strptime(zodatetime_str, '%Y-%m-%d %H:%M')
+zodatetime = DateTime.parse(zodatetime_str)
 
       if zodatetime < zkdatetime
         flash.now[:alert] = "終了時刻は開始時刻より後にしてください"
